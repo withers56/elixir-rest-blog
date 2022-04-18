@@ -4,6 +4,7 @@ package com.example.restblog.web;
 import com.example.restblog.data.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,7 @@ public class UsersController {
 
     @GetMapping
     private List<User> getAll() {
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         List<User> users = new ArrayList<>();
         users.add(new User(1, "testman", "test@gmail.com", "mypass", date, User.Role.USER));
         users.add(new User(2, "testman", "test@gmail.com", "mypass", date, User.Role.USER));
@@ -25,7 +26,7 @@ public class UsersController {
 
     @GetMapping("{userId}")
     private User getById(@PathVariable Long userId){
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         return new User(userId, "byIdTestname", "email", "38dh83hs", date, User.Role.USER);
     }
 

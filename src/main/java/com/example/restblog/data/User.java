@@ -2,6 +2,7 @@ package com.example.restblog.data;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -15,7 +16,7 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private Date createdAt;
+    private LocalDate createdAt;
     private Role role;
 
     public enum Role {USER, ADMIN}

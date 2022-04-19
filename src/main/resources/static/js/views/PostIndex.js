@@ -41,11 +41,11 @@ export default function PostIndex(props) {
                                     <form class="dropdown-menu p-1 w-50 border-dark">
                                          <div class="mb-3">
                                            <label for="post-updated-title" class="form-label">Title</label>
-                                           <input type="email" class="form-control" id="post-updated-title" value="${post.title}">
+                                           <input type="email" class="form-control" id="post-updated-title-${post.id}" value="${post.title}">
                                          </div>
                                          <div class="mb-3">
                                            <label for="post-updated-content" class="form-label">Content</label>
-                                           <textarea class="form-control" id="post-updated-content" rows="4">${post.content}</textarea>
+                                           <textarea class="form-control" id="post-updated-content-${post.id}" rows="4">${post.content}</textarea>
                                          </div>
                                          <div class="d-flex justify-content-end">
                                            <button type="button" class="btn btn-success post-edit-dropdown-btn" value="${post.id}">Update</button>
@@ -113,8 +113,8 @@ function addListenerToUpdatePost() {
         const postId = $(this).val();
         console.log(postId)
 
-        const updatedTitle = $('#post-updated-title').val();
-        const updatedContent = $('#post-updated-content').val();
+        const updatedTitle = $(`#post-updated-title-${postId}`).val();
+        const updatedContent = $(`#post-updated-content-${postId}`).val();
 
         const updatedPost = {
             title: updatedTitle,

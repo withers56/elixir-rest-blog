@@ -41,34 +41,44 @@ export default function Profile(props) {
                     </div>
                 </div>
                 
+                
+                
                 <div id="profile-posts" class="col-8">
-                    <div class="card my-3">
-                          <h5 class="card-header background-dark">$Example post</h5>
+                    ${props.users.posts.map(post =>
+                            `
+                
+                        <div class="card my-3">
+                          <div class="card-header background-dark d-flex justify-content-between">
+                            <h3>${post.title}</h3>
+                            <div class="author">${props.users.username}</div>
+                          </div>
                           <div class="card-body">
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A assumenda dolore dolorum incidunt nesciunt qui quibusdam. Cupiditate quos repellendus velit.</p>
+                            <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">
-                                <div class="mx-2"><button class="post-delete-btn btn btn-danger" value=${props.users.id}>delete</button></div>
+                                <div class="mx-2"><button class="post-delete-btn btn btn-danger" value=${post.id}>delete</button></div>
                                 <div class="dropdown mx-2 w-100">
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                     edit
                                     </button>
                                     <form class="dropdown-menu p-1 w-50 border-dark">
                                          <div class="mb-3">
-                                           <label for="post-updated-title" class="form-label">Title</label>
-                                           <input type="email" class="form-control" id="post-updated-title" value="example post">
+                                           <label for="profile-post-updated-title" class="form-label">Title</label>
+                                           <input type="email" class="form-control" id="profile-post-updated-title-${post.id}" value="${post.title}">
                                          </div>
                                          <div class="mb-3">
-                                           <label for="post-updated-content" class="form-label">Content</label>
-                                           <textarea class="form-control" id="post-updated-content" rows="4">COntent</textarea>
+                                           <label for="profile-post-updated-content" class="form-label">Content</label>
+                                           <textarea class="form-control" id="profile-post-updated-content-${post.id}" rows="4">${post.content}</textarea>
                                          </div>
                                          <div class="d-flex justify-content-end">
-                                           <button type="button" class="btn btn-success post-edit-dropdown-btn" value="${props.users.id}">Update</button>
+                                           <button type="button" class="btn btn-success profile-post-edit-dropdown-btn" value="${post.id}">Update</button>
                                          </div>
                                   </form>
                                 </div>
                             </div>
                           </div>
-                        </div>
+                        </div> 
+                `
+                    ).join('')}
                 </div>
                 
                 

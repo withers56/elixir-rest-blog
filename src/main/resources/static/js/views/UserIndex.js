@@ -1,6 +1,6 @@
 import createView from "../createView.js";
 
-const USER_PROFILE_URI = "http://localhost:8080/api/users/profile";
+const USER_URI = "http://localhost:8080/api/users/";
 
 
 export default function Profile(props) {
@@ -36,10 +36,7 @@ export default function Profile(props) {
                             </div>
                             <label for="password-new" class="form-label">New Password</label>
                             <input type="password" id="password-new" class="form-control" aria-describedby="passwordHelpBlock">
-                            <div id="passwordHelpBlock" class="form-text">
-                                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-                            </div>
-                            <button type="button" class="btn btn-primary" id="password-update-btn">Update password</button>
+                            <button type="button" class="btn btn-primary mt-3" id="password-update-btn">Update password</button>
                         </form>
                     </div>
                 </div>
@@ -106,8 +103,12 @@ function addListenerToUpdatePassword() {
             body: JSON.stringify(newPassword)
         }
 
-        fetch(`${USER_PROFILE_URI}/${username}`, requestObject).then(function (){
+        fetch(`${USER_URI}${username}/updatePassword`, requestObject).then(function (){
             console.log("Updating user: " + username + "'s password to: " + newPassword)
+        }).catch(function (){
+            console.log("error")
+        }).finally(function (){
+            createView("/profile")
         })
     });
 }

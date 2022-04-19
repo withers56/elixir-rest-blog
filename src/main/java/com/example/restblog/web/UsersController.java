@@ -60,7 +60,7 @@ public class UsersController {
     }
 
 
-    @PutMapping("/profile/{username}")
+    @PutMapping("/{username}/updatePassword")
     private void updatePassword(@PathVariable String username, @RequestBody String newPassword){
         System.out.println("Updating the password of user: " + username + " to: " + newPassword);
     }

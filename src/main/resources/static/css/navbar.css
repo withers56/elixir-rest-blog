@@ -4,7 +4,7 @@ body {
 }
 nav {
     background-color:  #a8d0e6;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 nav a {
@@ -25,4 +25,21 @@ nav a:hover {
 }
 
 .card-body {
+}
+
+.register-card {
+    top: 4em;
+}
+
+.login-card {
+    top: 4em;
+}
+
+.profile-password {
+    background-color: black;
+    width: min-content;
+}
+
+.profile-password:hover {
+    background-color: white;
 }

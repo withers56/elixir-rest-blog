@@ -45,4 +45,24 @@ public class UsersController {
         System.out.println("Deleting user with id of: " + userId);
     }
 
+    @GetMapping("/username")
+    @ResponseBody
+    private User getByUsername(@RequestParam String username) {
+        LocalDate date = LocalDate.now();
+        return new User(5L, username, "wwithers16@Yahoo.com", "nbgyhjbd7828d8dhh2", date, User.Role.USER);
+    }
+
+    @GetMapping("/email")
+    @ResponseBody
+    private User getByEmail(@RequestParam String email) {
+        LocalDate date = LocalDate.now();
+        return new User(5L, "withers56", email, "w23rwdf", date, User.Role.USER);
+    }
+
+
+    @PutMapping("/profile/{username}")
+    private void updatePassword(@PathVariable String username, @RequestBody String newPassword){
+        System.out.println("Updating the password of user: " + username + " to: " + newPassword);
+    }
+
 }

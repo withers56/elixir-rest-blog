@@ -33,26 +33,26 @@ export default function PostIndex(props) {
                           <div class="card-body">
                             <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">
-                            <div class="mx-2"><button class="post-delete-btn btn btn-danger" value=${post.id}>delete</button></div>
-                            <div class="dropdown mx-2 w-100">
-                                  <button class="btn btn-primary dropdown-toggle" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="mx-2"><button class="post-delete-btn btn btn-danger" value=${post.id}>delete</button></div>
+                                <div class="dropdown mx-2 w-100">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                     edit
-                                  </button>
-                                  <form class="dropdown-menu p-1 w-50 border-dark">
-                                      <div class="mb-3">
-                                        <label for="post-updated-title" class="form-label">Title</label>
-                                        <input type="email" class="form-control" id="post-updated-title" value="${post.title}">
-                                      </div>
-                                      <div class="mb-3">
-                                        <label for="post-updated-content" class="form-label">Content</label>
-                                        <textarea class="form-control" id="post-updated-content" rows="4">${post.content}</textarea>
-                                      </div>
-                                      <div class="d-flex justify-content-end">
-                                        <button type="button" class="btn btn-success post-edit-dropdown-btn" value="${post.id}">Update</button>
-                                      </div>
-                                    </form>
+                                    </button>
+                                    <form class="dropdown-menu p-1 w-50 border-dark">
+                                         <div class="mb-3">
+                                           <label for="post-updated-title" class="form-label">Title</label>
+                                           <input type="email" class="form-control" id="post-updated-title" value="${post.title}">
+                                         </div>
+                                         <div class="mb-3">
+                                           <label for="post-updated-content" class="form-label">Content</label>
+                                           <textarea class="form-control" id="post-updated-content" rows="4">${post.content}</textarea>
+                                         </div>
+                                         <div class="d-flex justify-content-end">
+                                           <button type="button" class="btn btn-success post-edit-dropdown-btn" value="${post.id}">Update</button>
+                                         </div>
+                                  </form>
+                                </div>
                             </div>
-                        </div>
                           </div>
                         </div>                         
         

@@ -3,7 +3,7 @@ export default function Navbar(props) {
         <nav class="d-flex justify-content-between">
         
         <div id="logo">
-            <a href="#">LOGO</a>
+            <a href="#">BlogPostWebsite.com</a>
         </div>
         
         <div id="links">
@@ -12,6 +12,7 @@ export default function Navbar(props) {
             <a href="/about" data-link>About</a>
             <a href="/login" data-link>Login</a>
             <a href="/register" data-link>Register</a>
+            <a href="/profile" data-link>Profile</a>
         </div>
         
         </nav>

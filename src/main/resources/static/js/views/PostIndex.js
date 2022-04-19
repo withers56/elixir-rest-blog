@@ -2,6 +2,7 @@ import createView from "../createView.js";
 
 const POST_URI = "http://localhost:8080/api/posts";
 export default function PostIndex(props) {
+    console.log(props);
     //language=HTML
     return `
         <header>
@@ -29,7 +30,10 @@ export default function PostIndex(props) {
                         `
         
                         <div class="card my-3">
-                          <h5 class="card-header background-dark">${post.title}</h5>
+                        <div class="card-header background-dark d-flex justify-content-between">
+                            <h3>${post.title}</h3>
+                            <div class="author">${post.author.username}</div>
+                          </div>
                           <div class="card-body">
                             <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">

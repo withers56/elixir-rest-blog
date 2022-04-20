@@ -16,6 +16,7 @@ export default function Profile(props) {
                     <div class="profile-image m-1">
                         <img src="https://picsum.photos/275" alt="profile-pic">
                     </div>
+                    <div class="profile-id" data-id="${props.users.id}"></div>
                     <div class="profile-username" data-username="${props.users.username}">
                         <h3 class="m-1">${props.users.username}</h3>
                     </div>
@@ -44,7 +45,7 @@ export default function Profile(props) {
                 
                 
                 <div id="profile-posts" class="col-8">
-                    ${props.users.posts.map(post =>
+                    ${props.posts.map(post =>
                             `
                 
                         <div class="card my-3">
@@ -99,7 +100,8 @@ export function UserEvents() {
 
 function addListenerToUpdatePassword() {
     $('#password-update-btn').click(function (){
-        const username = $('.profile-username').data('username')
+        const userId = $('.profile-id').data('id');
+        const username = $('.profile-username').data('username');
         const currentPassword = $('#password-current').val();
         const newPassword = $('#password-new').val();
 
@@ -110,10 +112,10 @@ function addListenerToUpdatePassword() {
         const requestObject = {
             method: "PUT",
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newPassword)
+            body: newPassword
         }
 
-        fetch(`${USER_URI}${username}/updatePassword`, requestObject).then(function (){
+        fetch(`${USER_URI}${userId}/updatePassword`, requestObject).then(function (){
             console.log("Updating user: " + username + "'s password to: " + newPassword)
         }).catch(function (){
             console.log("error")

@@ -20,10 +20,6 @@ public class PostsController {
         this.postsRepository = postsRepository;
     }
 
-    private static final User user1 = new User(1, "testman1", "test1@gmail.com", "mypass", null, User.Role.USER, null);
-    private static final User user2 = new User(2, "testman2", "test2@gmail.com", "mypass", null, User.Role.USER, null);
-    private static final User user3 = new User(3, "testman3", "test3@gmail.com", "mypass", null, User.Role.USER, null);
-
     @GetMapping
     private List<Post> getAll() {
         return postsRepository.findAll();

@@ -4,6 +4,8 @@ const POST_URI = "http://localhost:8080/api/posts";
 export default function PostIndex(props) {
     console.log(props);
     //language=HTML
+
+    //<div class="author">${post.author.username}</div>
     return `
         <header>
             <h1>Posts Page</h1>
@@ -24,6 +26,8 @@ export default function PostIndex(props) {
                     </div>
                 </form>
             </div>
+            
+            <hr class="mt-3" style="width: 91%; margin: auto">
 
             <div id="posts-container" class="mx-5">
                 ${props.posts.map(post =>
@@ -32,7 +36,7 @@ export default function PostIndex(props) {
                         <div class="card my-3">
                         <div class="card-header background-dark d-flex justify-content-between">
                             <h3>${post.title}</h3>
-                            <div class="author">${post.author.username}</div>
+<!--                            add code from line 8 here once users connected to post in db-->
                           </div>
                           <div class="card-body">
                             <p class="card-text">${post.content}</p>
@@ -133,6 +137,10 @@ function addListenerToUpdatePost() {
 
         fetch(`${POST_URI}/${postId}`, requestObject).then(function (resp){
             console.log("Updating post with id of: " + postId + " to: " + updatedPost.title + " and " + updatedPost.content);
+        }).catch(function (){
+            console.log("error")
+        }).finally(function (){
+            createView("/posts")
         });
 
     });
@@ -143,6 +151,10 @@ function addListenerToDeletePost(){
 
         fetch(`${POST_URI}/${postId}`, {method: "DELETE"}).then(function (resp){
             console.log("deleted post woht id of " + postId);
-        })
+        }).catch(function (){
+            console.log("error")
+        }).finally(function (){
+            createView("/posts")
+        });
     });
 }

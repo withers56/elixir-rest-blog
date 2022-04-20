@@ -18,6 +18,10 @@ nav a:hover {
     opacity: .75;
 }
 
+.navbar {
+    background-color: #a8d0e6;
+}
+
 .card {
 }
 

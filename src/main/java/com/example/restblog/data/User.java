@@ -2,6 +2,7 @@ package com.example.restblog.data;
 
 import lombok.*;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+
+
 public class User {
 
     private long id;

@@ -13,7 +13,7 @@ import java.util.*;
 @RequestMapping(value = "/api/users", headers = "Accept=application/json")
 public class UsersController {
 
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     public UsersController(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
@@ -44,10 +44,11 @@ public class UsersController {
     private void updateUser(@PathVariable Long userId, @RequestBody User user) {
 
         User userToUpdate = usersRepository.getById(userId);
+        userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPassword(user.getPassword());
         usersRepository.save(userToUpdate);
 
-        System.out.println("Updating password of user with id of: " + userId + " \nto: " + user);
+        System.out.println("Updating user with id of: " + userId + " \nto: " + user);
     }
 
     @DeleteMapping("{userId}")
@@ -59,16 +60,14 @@ public class UsersController {
     @GetMapping("/username")
     @ResponseBody
     private User getByUsername(@RequestParam String username) {
-        User user = usersRepository.findByUsernameIs(username);
-        return user;
+        return usersRepository.findByUsernameIs(username);
     }
 
-//    @GetMapping("/email")
-//    @ResponseBody
-//    private User getByEmail(@RequestParam String email) {
-//        LocalDate date = LocalDate.now();
-//        return new User(5L, "withers56", email, "w23rwdf", date, User.Role.USER, Arrays.asList(post6));
-//    }
+    @GetMapping("/email")
+    @ResponseBody
+    private User getByEmail(@RequestParam String email) {
+        return usersRepository.findByEmailIs(email);
+    }
 
 
     @PutMapping("/{userId}/updatePassword")

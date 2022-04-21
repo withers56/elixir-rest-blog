@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostsController {
 
-    private PostsRepository postsRepository;
+    private final PostsRepository postsRepository;
 
     public PostsController(PostsRepository postsRepository) {
         this.postsRepository = postsRepository;

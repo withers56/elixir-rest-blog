@@ -25,8 +25,9 @@ public class UsersController {
     }
 
     @GetMapping("{userId}")
-    private User getById(@PathVariable Long userId){
-        return usersRepository.getById(userId);
+    private Optional<User> getByUserId(@PathVariable Long userId){
+
+        return usersRepository.findById(userId);
     }
 
     @PostMapping
@@ -52,7 +53,7 @@ public class UsersController {
     }
 
     @DeleteMapping("{userId}")
-    private void deleteUser(@PathVariable long userId) {
+    private void deleteUser(@PathVariable Long userId) {
         usersRepository.deleteById(userId);
         System.out.println("Deleting user with id of: " + userId);
     }
@@ -60,14 +61,14 @@ public class UsersController {
     @GetMapping("/username")
     @ResponseBody
     private User getByUsername(@RequestParam String username) {
-        return usersRepository.findByUsernameIs(username);
+        return usersRepository.findByUsername(username);
     }
-
-    @GetMapping("/email")
-    @ResponseBody
-    private User getByEmail(@RequestParam String email) {
-        return usersRepository.findByEmailIs(email);
-    }
+//
+//    @GetMapping("/email")
+//    @ResponseBody
+//    private User getByEmail(@RequestParam String email) {
+//        return usersRepository.findByEmailIs(email);
+//    }
 
 
     @PutMapping("/{userId}/updatePassword")

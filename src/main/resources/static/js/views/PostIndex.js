@@ -5,8 +5,9 @@ export default function PostIndex(props) {
     console.log(props);
     //language=HTML
 
-    //<div class="author">${post.author.username}</div>
     return `
+
+
         <header>
             <h1>Posts Page</h1>
         </header>
@@ -36,14 +37,18 @@ export default function PostIndex(props) {
                         <div class="card my-3">
                         <div class="card-header background-dark d-flex justify-content-between">
                             <h3>${post.title}</h3>
-<!--                            add code from line 8 here once users connected to post in db-->
-                          </div>
+                            <div class="author-categories">
+                                <div class="author">Author: ${post.author.username}</div>
+                                <div class="categories">Categories: ${post.categories.map(category => category.name)}</div>
+                            </div>
+
+                        </div>
                           <div class="card-body">
                             <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">
-                                <div class="mx-2"><button class="post-delete-btn btn btn-danger" value=${post.id}>delete</button></div>
+                                <div class="mx-2"><button class="post-delete-btn btn btn-danger btn-sm" value=${post.id}>delete</button></div>
                                 <div class="dropdown mx-2 w-100">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                     edit
                                     </button>
                                     <form class="dropdown-menu p-1 w-50 border-dark">
@@ -134,6 +139,8 @@ function addListenerToUpdatePost() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(updatedPost)
         }
+
+
 
         fetch(`${POST_URI}/${postId}`, requestObject).then(function (resp){
             console.log("Updating post with id of: " + postId + " to: " + updatedPost.title + " and " + updatedPost.content);

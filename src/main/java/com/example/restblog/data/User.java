@@ -1,5 +1,6 @@
 package com.example.restblog.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String username;
@@ -35,7 +36,10 @@ public class User {
 
     @Column
     private Role role;
-//    private Collection<Post> posts;
+
+    @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties("author")
+    private Collection<Post> posts;
 
     public enum Role {USER, ADMIN}
 

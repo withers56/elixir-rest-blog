@@ -67,8 +67,8 @@ export default function router(URI) {
         '/profile': {
             returnView: Profile,
             state: {
-                users: '/api/users/username?username=withers56',//<--- eventually the username here can be dynamic
-                posts: '/api/posts' //<-- can pass an endpoint that finds posts for just the specific user above
+                users: '/api/users/1'//<--- eventually the username here can be dynamic
+                // posts: '/api/posts' //<-- can pass an endpoint that finds posts for just the specific user above
             },
             uri: '/profile',
             title: 'Profile',

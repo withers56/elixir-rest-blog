@@ -3,11 +3,11 @@ package com.example.restblog.web;
 
 import com.example.restblog.data.Post;
 import com.example.restblog.data.PostsRepository;
-import com.example.restblog.data.User;
+import com.example.restblog.data.UsersRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -15,9 +15,12 @@ import java.util.List;
 public class PostsController {
 
     private final PostsRepository postsRepository;
+    private final UsersRepository usersRepository;
 
-    public PostsController(PostsRepository postsRepository) {
+
+    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository) {
         this.postsRepository = postsRepository;
+        this.usersRepository = usersRepository;
     }
 
     @GetMapping
@@ -26,20 +29,22 @@ public class PostsController {
     }
 //    GET api/posts/5  5 being an id
     @GetMapping("{postId}")
-    public Post getById(@PathVariable Long postId){
-        return postsRepository.getById(postId);
+    private Optional<Post> getById(@PathVariable Long postId){
+        return postsRepository.findById(postId);
     }
 
     @PostMapping
     private void createPost(@RequestBody Post newPost){
+
         Post postToAdd = new Post(newPost.getTitle(), newPost.getContent());
+        postToAdd.setAuthor(usersRepository.getById(1L));
         //SAVE THIS POST TO THE DATABASE
         postsRepository.save(postToAdd);
         System.out.println("Post created");
     }
 
     @PutMapping("{id}")
-    private void updatePost(@PathVariable long id, @RequestBody Post post){
+    private void updatePost(@PathVariable Long id, @RequestBody Post post){
         Post postToUpdate = postsRepository.getById(id);
         postToUpdate.setContent(post.getContent());
         postToUpdate.setTitle(post.getTitle());
@@ -48,7 +53,7 @@ public class PostsController {
     }
 
     @DeleteMapping("{id}")
-    private void deletePost(@PathVariable long id) {
+    private void deletePost(@PathVariable Long id) {
         postsRepository.deleteById(id);
         System.out.println("Deleted post with id of: " + id);
     }

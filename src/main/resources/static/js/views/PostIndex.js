@@ -30,7 +30,7 @@ export default function PostIndex(props) {
             
             <hr class="mt-3" style="width: 91%; margin: auto">
 
-            <div id="posts-container" class="mx-5">
+            <div id="posts-container" class="mx-5 ">
                 ${props.posts.map(post =>
                         `
         

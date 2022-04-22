@@ -58,17 +58,17 @@ public class UsersController {
         System.out.println("Deleting user with id of: " + userId);
     }
 
-    @GetMapping("/username")
+    @GetMapping("username")
     @ResponseBody
     private User getByUsername(@RequestParam String username) {
         return usersRepository.findByUsername(username);
     }
-//
-//    @GetMapping("/email")
-//    @ResponseBody
-//    private User getByEmail(@RequestParam String email) {
-//        return usersRepository.findByEmailIs(email);
-//    }
+
+    @GetMapping("email")
+    @ResponseBody
+    private User getByEmail(@RequestParam String email) {
+        return usersRepository.findByEmail(email);
+    }
 
 
     @PutMapping("/{userId}/updatePassword")

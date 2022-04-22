@@ -1,11 +1,12 @@
 package com.example.restblog.web;
 
 
-import com.example.restblog.data.Post;
-import com.example.restblog.data.PostsRepository;
-import com.example.restblog.data.UsersRepository;
+import com.example.restblog.data.*;
+import com.example.restblog.services.EmailService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,11 +17,14 @@ public class PostsController {
 
     private final PostsRepository postsRepository;
     private final UsersRepository usersRepository;
+    private final CategoriesRepository categoriesRepository;
+    private final EmailService emailService;
 
-
-    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository) {
+    public PostsController(PostsRepository postsRepository, UsersRepository usersRepository, CategoriesRepository categoriesRepository, EmailService emailService) {
         this.postsRepository = postsRepository;
         this.usersRepository = usersRepository;
+        this.categoriesRepository = categoriesRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -33,11 +37,31 @@ public class PostsController {
         return postsRepository.findById(postId);
     }
 
+    @GetMapping("getByCategory")
+    private List<Post> getPostsByCategory(@RequestParam String cat) {
+        return postsRepository.findAllByCategories(categoriesRepository.findCategoryByName(cat));
+    }
+
+    @GetMapping("title")
+    private List<Post> getPostByTitle(@RequestParam String title) {
+        return postsRepository.findAllByTitle(title);
+    }
+
     @PostMapping
     private void createPost(@RequestBody Post newPost){
+        //in-memory list og categories
+        Collection<Category> categories = new ArrayList<>();
+        categories.add(categoriesRepository.getById(1L));
+        categories.add(categoriesRepository.getById(2L));
 
         Post postToAdd = new Post(newPost.getTitle(), newPost.getContent());
+
+
+        //hard coded userId value
         postToAdd.setAuthor(usersRepository.getById(1L));
+        postToAdd.setCategories(categories);
+
+        emailService.prepareAndSend(postToAdd, "post subject", "post body");
         //SAVE THIS POST TO THE DATABASE
         postsRepository.save(postToAdd);
         System.out.println("Post created");

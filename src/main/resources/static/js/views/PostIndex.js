@@ -1,4 +1,5 @@
 import createView from "../createView.js";
+import {getHeaders} from "../auth.js";
 
 const POST_URI = "http://localhost:8080/api/posts";
 export default function PostIndex(props) {
@@ -9,7 +10,11 @@ export default function PostIndex(props) {
 
 
         <header>
-            <h1>Posts Page</h1>
+            <div class="categories d-flex justify-content-evenly">
+                <a href="#">Music</a>
+                <a href="#">Sports</a>
+                <a href="#">Food</a>
+            </div>
         </header>
         <main>
             <div id="create-post-form" class="mx-5">
@@ -17,21 +22,28 @@ export default function PostIndex(props) {
                     <div class="form-group">
                         <label for="post-title">Title</label>
 <!--                        <input type="email" class="form-control background-card-dark" id="post-title">-->
-                        <input type="email" name="test" id="post-title" class="background-card-dark create-input">
-
+                        <input type="email" name="test" id="post-title" class="background-card-dark create-input no-focus">
                     </div>
 
                     <div class="form-group">
                         <label for="post-content">Content</label>
 <!--                        <textarea class="form-control background-card-dark" id="post-content" rows="3"></textarea>-->
-                        <textarea name="test" id="post-content" class="background-card-dark create-input"></textarea>
-
+                        <textarea name="test" id="post-content" class="background-card-dark create-input no-focus"></textarea>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="music" value="music">
+                        <label for="music">Music</label>
+                        <input type="checkbox" id="sports"  value="sports">
+                        <label for="sports">Sports</label>
+                        <input type="checkbox" id="food" value="food">
+                        <label for="food">Food</label>
                     </div>
                     <div class="form-group mt-2 d-flex justify-content-end">
                         <button class="btn btn-success" type="button" id="postCreateBtn">Create post</button>
                     </div>
                 </form>
             </div>
+            
             
             <hr class="mt-3" style="width: 91%; margin: auto">
 
@@ -59,34 +71,20 @@ export default function PostIndex(props) {
                                     <form class="dropdown-menu p-1 w-50 border-dark">
                                          <div class="mb-3">
                                            <label for="post-updated-title" class="form-label">Title</label>
-                                           <input type="email" class="form-control" id="post-updated-title-${post.id}" value="${post.title}">
+                                           <input type="email" class="form-control no-focus" id="post-updated-title-${post.id}" value="${post.title}">
                                          </div>
                                          <div class="mb-3">
                                            <label for="post-updated-content" class="form-label">Content</label>
-                                           <textarea class="form-control" id="post-updated-content-${post.id}" rows="4">${post.content}</textarea>
+                                           <textarea class="form-control no-focus" id="post-updated-content-${post.id}" rows="4">${post.content}</textarea>
                                          </div>
                                          <div class="d-flex justify-content-end">
-                                           <button type="button" class="btn btn-success post-edit-dropdown-btn" value="${post.id}">Update</button>
+                                           <button type="button" class="btn btn-success post-edit-dropdown-btn no-focus" value="${post.id}">Update</button>
                                          </div>
                                   </form>
                                 </div>
                             </div>
                           </div>
                         </div>                         
-        
-        
-        
-        
-        
-        
-        
-        
-                        
-                        
-                        
-                        
-                        
-                        
                     `)
         .join('')}  
             </div>
@@ -98,6 +96,7 @@ export function PostsEvent() {
     addListenerToCreatePost();
     addListenerToUpdatePost();
     addListenerToDeletePost();
+    addListenerToCategoryLinks();
 }
 
 function addListenerToCreatePost(){
@@ -110,9 +109,11 @@ function addListenerToCreatePost(){
             content
         }
 
+        console.log(getHeaders());
+
         const requestObject = {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: getHeaders(),
             body: JSON.stringify(newPost)
         }
         console.log(newPost);
@@ -141,7 +142,7 @@ function addListenerToUpdatePost() {
 
         const requestObject = {
             method: "PUT",
-            headers: {'Content-Type': 'application/json'},
+            headers: getHeaders(),
             body: JSON.stringify(updatedPost)
         }
 
@@ -161,12 +162,40 @@ function addListenerToDeletePost(){
     $(".post-delete-btn").click(function (){
         const postId = $(this).val();
 
-        fetch(`${POST_URI}/${postId}`, {method: "DELETE"}).then(function (resp){
+        const requestObject = {
+            method: "DELETE",
+            headers: getHeaders()
+        }
+
+        fetch(`${POST_URI}/${postId}`, requestObject).then(function (resp){
             console.log("deleted post woht id of " + postId);
         }).catch(function (){
             console.log("error")
         }).finally(function (){
             createView("/posts")
+        });
+    });
+}
+
+function addListenerToCategoryLinks() {
+    console.log("test")
+    $("a").click(function (){
+        const category = $(this).text().toLowerCase();
+        console.log(category)
+        const requestObject = {
+            method: "GET",
+            headers: getHeaders()
+        }
+
+        fetch(`${POST_URI}/getByCategory?cat=${category}`, requestObject).then(function (resp){
+            console.log(resp)
+            return resp.json();
+        }).then(function (data){
+            let posts = {
+                posts: data
+            }
+            console.log(posts)
+            $(document).html(PostIndex(posts))
         });
     });
 }

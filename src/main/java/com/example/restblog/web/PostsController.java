@@ -2,7 +2,9 @@ package com.example.restblog.web;
 
 
 import com.example.restblog.data.*;
+import com.example.restblog.security.OAuthConfiguration;
 import com.example.restblog.services.EmailService;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class PostsController {
     }
 
     @PostMapping
-    private void createPost(@RequestBody Post newPost){
+    private void createPost(@RequestBody Post newPost, OAuth2Authentication auth){
         //in-memory list og categories
         Collection<Category> categories = new ArrayList<>();
         categories.add(categoriesRepository.getById(1L));
@@ -57,8 +59,12 @@ public class PostsController {
         Post postToAdd = new Post(newPost.getTitle(), newPost.getContent());
 
 
-        //hard coded userId value
-        postToAdd.setAuthor(usersRepository.getById(1L));
+        //Finding active user that is logged in to set them as the author of the post
+        String userEmail = auth.getName();
+        User user = usersRepository.findByEmail(userEmail);
+
+        //sets author and categories to post
+        postToAdd.setAuthor(user);
         postToAdd.setCategories(categories);
 
         emailService.prepareAndSend(postToAdd, "post subject", "post body");

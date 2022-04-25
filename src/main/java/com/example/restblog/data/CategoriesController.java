@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -20,7 +21,7 @@ public class CategoriesController {
     }
 
     @GetMapping
-    private Optional<Category> logData(){
-        return categoriesRepository.findById(1L);
+    private List<Category> getAllCategories(){
+        return categoriesRepository.findAll();
     }
 }

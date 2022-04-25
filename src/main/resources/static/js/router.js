@@ -9,6 +9,7 @@ import LoginEvent from "./auth.js";
 import Register from "./views/Register.js"
 import {RegisterEvent} from "./views/Register.js";
 import Profile, {UserEvents} from "./views/UserIndex.js";
+import logout, {logoutEvent} from "./views/logout.js";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -30,6 +31,13 @@ export default function router(URI) {
             title: "Login",
             viewEvent: LoginEvent
         },
+        '/logout': {
+            returnView: logout,
+            state: {},
+            uri: '/logout',
+            title: "Logout",
+            viewEvent: logoutEvent
+        },
         '/register': {
             returnView: Register,
             state: {},
@@ -40,7 +48,8 @@ export default function router(URI) {
         '/posts': {
             returnView: PostIndex,
             state: {
-                posts: '/api/posts'
+                posts: '/api/posts',
+                categories: '/api/cat'
             },
             uri: '/posts',
             title: 'All Posts',
@@ -67,13 +76,14 @@ export default function router(URI) {
         '/profile': {
             returnView: Profile,
             state: {
-                users: '/api/users/1'//<--- eventually the username here can be dynamic
+                users: '/api/users/me'//<--- eventually the username here can be dynamic
                 // posts: '/api/posts' //<-- can pass an endpoint that finds posts for just the specific user above
             },
             uri: '/profile',
             title: 'Profile',
             viewEvent: UserEvents
         }
+
     };
 
     return routes[URI];

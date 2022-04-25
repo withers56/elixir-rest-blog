@@ -4,6 +4,7 @@ package com.example.restblog.web;
 import com.example.restblog.data.User;
 import com.example.restblog.data.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -33,7 +34,8 @@ public class UsersController {
         return usersRepository.findById(userId);
     }
 
-    @PostMapping
+    //create user is now at api/users/create
+    @PostMapping("create")
     private void createUser(@RequestBody User newUser) {
 
         newUser.setCreatedAt(LocalDate.now());
@@ -61,6 +63,11 @@ public class UsersController {
     private void deleteUser(@PathVariable Long userId) {
         usersRepository.deleteById(userId);
         System.out.println("Deleting user with id of: " + userId);
+    }
+
+    @GetMapping("me")
+    private User getLoggedInUser(OAuth2Authentication auth) {
+        return usersRepository.findByEmail(auth.getName());
     }
 
     @GetMapping("username")

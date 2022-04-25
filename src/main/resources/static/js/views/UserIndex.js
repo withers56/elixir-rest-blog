@@ -12,9 +12,12 @@ export default function Profile(props) {
             <h1>PROFILE</h1>
         </header>
         <main>
-            <div class="container-fluid row m-0">
-                <div class="profile-info col-4">
-                    <div class="profile-image m-1">
+            <div class="container-fluid m-0">
+                <div class="row ">
+                    
+               
+                <div class="profile-info col-12 col-md-4">
+                    <div class="profile-image mx-auto m-md-1">
                         <img src="https://picsum.photos/275" alt="profile-pic">
                     </div>
                     <div class="profile-id" data-id="${props.users.id}"></div>
@@ -43,12 +46,12 @@ export default function Profile(props) {
                     </div>
                 </div>
                 
-                <div class="profile-posts col-8">
+                <div class="profile-posts col-12 offset-md-1 offset-lg-0 col-md-7 col-lg-8">
                     ${props.users.posts.map(post => 
                             `
                             
                             <div class="card my-3">
-                        <div class="card-header background-dark d-flex justify-content-between">
+                        <div class="card-header background-card-dark d-flex justify-content-between">
                             <h3>${post.title}</h3>
                             <div class="author-categories">
                                 <div class="author">Author: ${props.users.username}</div>
@@ -56,7 +59,7 @@ export default function Profile(props) {
                             </div>
 
                         </div>
-                          <div class="card-body">
+                          <div class="card-body background-card-dark">
                             <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">
                                 <div class="mx-2"><button class="post-delete-btn btn btn-danger btn-sm" value=${post.id}>delete</button></div>
@@ -85,18 +88,7 @@ export default function Profile(props) {
                             `)
                             .join('')}
                 </div>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                  
+                </div>    
             </div>
         </main>
     `;

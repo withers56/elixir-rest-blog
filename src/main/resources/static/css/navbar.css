@@ -10,8 +10,8 @@ nav {
     /*font-size: 1.25em;*/
 }
 
-input:focus, textarea:focus {
-    outline: none;
+.no-focus:focus {
+
 }
 
 

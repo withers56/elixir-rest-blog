@@ -16,11 +16,16 @@ export default function PostIndex(props) {
                 <form>
                     <div class="form-group">
                         <label for="post-title">Title</label>
-                        <input type="email" class="form-control" id="post-title">
+<!--                        <input type="email" class="form-control background-card-dark" id="post-title">-->
+                        <input type="email" name="test" id="post-title" class="background-card-dark create-input">
+
                     </div>
+
                     <div class="form-group">
                         <label for="post-content">Content</label>
-                        <textarea class="form-control" id="post-content" rows="3"></textarea>
+<!--                        <textarea class="form-control background-card-dark" id="post-content" rows="3"></textarea>-->
+                        <textarea name="test" id="post-content" class="background-card-dark create-input"></textarea>
+
                     </div>
                     <div class="form-group mt-2 d-flex justify-content-end">
                         <button class="btn btn-success" type="button" id="postCreateBtn">Create post</button>
@@ -35,21 +40,21 @@ export default function PostIndex(props) {
                         `
         
                         <div class="card my-3">
-                        <div class="card-header background-dark d-flex justify-content-between">
+                        <div class="card-header background-card-dark d-flex justify-content-between">
                             <h3>${post.title}</h3>
-                            <div class="author-categories">
+                            <div class="author-categories w-40">
                                 <div class="author">Author: ${post.author.username}</div>
                                 <div class="categories">Categories: ${post.categories.map(category => category.name)}</div>
                             </div>
 
                         </div>
-                          <div class="card-body">
+                          <div class="card-body background-card-dark">
                             <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">
-                                <div class="mx-2"><button class="post-delete-btn btn btn-danger btn-sm" value=${post.id}>delete</button></div>
+                                <div class="mx-2"><button class="post-delete-btn btn btn-danger btn-sm" value=${post.id}><i class="bi bi-trash-fill"></i></button></div>
                                 <div class="dropdown mx-2 w-100">
                                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
-                                    edit
+                                        <i class="bi bi-pencil-fill"></i>
                                     </button>
                                     <form class="dropdown-menu p-1 w-50 border-dark">
                                          <div class="mb-3">

@@ -3,6 +3,7 @@ package com.example.restblog.web;
 
 import com.example.restblog.data.User;
 import com.example.restblog.data.UsersRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -14,9 +15,11 @@ import java.util.*;
 public class UsersController {
 
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsersController(UsersRepository usersRepository) {
+    public UsersController(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -35,7 +38,9 @@ public class UsersController {
 
         newUser.setCreatedAt(LocalDate.now());
         newUser.setRole(User.Role.USER);
-
+        String encryptedPassword = newUser.getPassword();
+        encryptedPassword = passwordEncoder.encode(encryptedPassword);
+        newUser.setPassword(encryptedPassword);
         usersRepository.save(newUser);
 
         System.out.println("User created");

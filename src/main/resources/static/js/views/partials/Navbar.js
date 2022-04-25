@@ -27,7 +27,7 @@ export default function Navbar(props) {
 
 
 
-            <nav class="navbar navbar-expand-lg navbar-light ">
+            <nav class="navbar navbar-expand-lg background-bar-dark">
                   <div class="container-fluid">
                     <a class="navbar-brand" href="#">BlogPostWebsite.com</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">

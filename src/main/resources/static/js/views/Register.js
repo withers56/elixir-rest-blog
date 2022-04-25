@@ -39,22 +39,22 @@ export default function Register(props) {
                     
                     
                     <div class="card w-50 m-auto register-card">
-                        <div class="card-header">
+                        <div class="card-header background-card-dark">
                             <h2>Register</h2>
                         </div>
-                      <div class="card-body">
+                      <div class="card-body background-card-dark">
                         <form id="register-form">
                       <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" aria-describedby="emailHelp">
+                        <input type="text" class="form-control background-card-dark" id="username" aria-describedby="emailHelp">
                         
                       <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                        <input type="email" class="form-control background-card-dark" id="email" aria-describedby="emailHelp">
                         
                       <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password">
+                        <input type="password" class="form-control background-card-dark" id="password">
                       </div>
                       <button type="button" class="btn btn-primary" id="register-btn">Register</button>
                     </form>
@@ -74,21 +74,25 @@ export default function Register(props) {
 export function RegisterEvent(){
     $("#register-btn").click(function(){
 
+        const username = $("#username").val();
+        const email = $("#email").val();
+        const password = $("#password").val()
+
         let newUser = {
-            username: $("#username").val(),
-            email: $("#email").val(),
-            password: $("#password").val()
+            username,
+            email,
+            password
         }
 
         console.log(newUser);
 
         let request = {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(newUser)
         }
 
-        fetch("http://localhost:8080/api/users", request)
+        fetch("http://localhost:8080/api/users/", request)
             .then(response => {
                 console.log(response.status);
                 CreateView("/");

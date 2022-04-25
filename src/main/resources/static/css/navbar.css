@@ -1,25 +1,52 @@
 body {
-    background-color: white;
-    color: black;
+    /*background-color: white;*/
+    /*color: black;*/
+    background-color: #121212;
+    color: #FFFFFF;
 }
+
 nav {
-    background-color:  #a8d0e6;
-    font-size: 1.25em;
+    /*background-color:  #a8d0e6;*/
+    /*font-size: 1.25em;*/
 }
+
+input:focus, textarea:focus {
+    outline: none;
+}
+
 
 nav a {
     padding: 0 .5em;
-    color: black;
+    color: #FFFFFF;
+    /*color: black;*/
     text-decoration: none;
 }
 
 nav a:hover {
-    color: black;
+    color: #FFFFFF;
     opacity: .75;
 }
 
+.author-categories {
+    width: 25%;
+}
+
+.create-input {
+    width: 100%;
+    border: 1px solid #FFFFFF;
+    border-radius: 5px;
+    padding: .375rem .75rem;
+    color: #FFFFFF;
+}
+
+
 .navbar {
-    background-color: #a8d0e6;
+    /*background-color: #a8d0e6;*/
+    color: #FFFFFF;
+}
+
+.nav-link {
+    color: #FFFFFF;
 }
 
 .card {
@@ -46,4 +73,24 @@ nav a:hover {
 
 .profile-password:hover {
     background-color: white;
+}
+
+.background-dark {
+    background-color: #121212;
+}
+
+.background-bar-dark {
+    background-color: #282828;
+}
+
+.background-btn-dark {
+    background-color: #181818;
+}
+
+.background-card-dark {
+    background-color: #404040;
+}
+
+.register-card{
+    color: #FFFFFF;
 }

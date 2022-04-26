@@ -68,8 +68,18 @@ function setTokens(responseData) {
 
 export function isLoggedIn() {
    return !!window.localStorage.getItem('access_token');
+}
 
+export function userRole() {
 
+    if (isLoggedIn()) {
+        const accessToken = window.localStorage.getItem("access_token");
+        const parts = accessToken.split('.');
+        const payload = parts[1];
+        const decodedPayload = atob(payload);
+        const payloadObject = JSON.parse(decodedPayload);
+        return payloadObject.authorities[0];
+    }
 
-
+    return false;
 }

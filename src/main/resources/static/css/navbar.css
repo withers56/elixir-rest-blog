@@ -31,6 +31,12 @@ nav a:hover {
     width: 25%;
 }
 
+.categories a {
+    font-size: .75em;
+    color: #FFFFFF;
+    opacity: .8;
+}
+
 .create-input {
     width: 100%;
     border: 1px solid #FFFFFF;
@@ -56,6 +62,12 @@ nav a:hover {
 }
 
 .card-body {
+}
+
+.form-select {
+    width: 25%;
+    background-color: #404040;
+    color: #FFFFFF;
 }
 
 .register-card {

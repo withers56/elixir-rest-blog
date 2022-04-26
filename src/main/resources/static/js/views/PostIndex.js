@@ -5,15 +5,23 @@ const POST_URI = "http://localhost:8080/api/posts";
 export default function PostIndex(props) {
     console.log(props);
     //language=HTML
-
-    return `
-
+    return `<div id="post-page">
 
         <header>
-            <div class="categories d-flex justify-content-evenly">
+            <div class="categories d-flex flex-wrap flex-md-nowrap justify-content-evenly mt-3">
                 <a href="#">Music</a>
                 <a href="#">Sports</a>
                 <a href="#">Food</a>
+                <a href="#">Drink</a>
+                <a href="#">Art</a>
+                <a href="#">Outdoors</a>
+                <a href="#">Business</a>
+                <a href="#">Culture</a>
+                <a href="#">Entertainment</a>
+                <a href="#">Politics</a>
+                <a href="#">Military</a>
+                <a href="#">Nature</a>
+                <a href="#">Science</a>
             </div>
         </header>
         <main>
@@ -21,35 +29,48 @@ export default function PostIndex(props) {
                 <form>
                     <div class="form-group">
                         <label for="post-title">Title</label>
-<!--                        <input type="email" class="form-control background-card-dark" id="post-title">-->
+                        <!--                        <input type="email" class="form-control background-card-dark" id="post-title">-->
                         <input type="email" name="test" id="post-title" class="background-card-dark create-input no-focus">
                     </div>
 
                     <div class="form-group">
                         <label for="post-content">Content</label>
-<!--                        <textarea class="form-control background-card-dark" id="post-content" rows="3"></textarea>-->
+                        <!--                        <textarea class="form-control background-card-dark" id="post-content" rows="3"></textarea>-->
                         <textarea name="test" id="post-content" class="background-card-dark create-input no-focus"></textarea>
                     </div>
-                    <div>
-                        <input type="checkbox" id="music" value="music">
-                        <label for="music">Music</label>
-                        <input type="checkbox" id="sports"  value="sports">
-                        <label for="sports">Sports</label>
-                        <input type="checkbox" id="food" value="food">
-                        <label for="food">Food</label>
+                    <label for="categories-select">Categories</label>
+                    <div class="form-group d-flex justify-content-between" id="categories-select">
+                        <select id="categories-list-1" class="form-select" multiple size="4" aria-label="size 3 select example">
+                            <option value="music">Music</option>
+                            <option value="sports">Sports</option>
+                            <option value="food">Food</option>
+                            <option value="drink">Drink</option>
+                        </select>
+                        <select id="categories-list-2" class="form-select" multiple size="4" aria-label="size 3 select example">
+                            <option value="art">Art</option>
+                            <option value="outdoors">Outdoors</option>
+                            <option value="business">Business</option>
+                            <option value="culture">Culture</option>
+                        </select>
+                        <select id="categories-list-3" class="form-select" multiple size="4" aria-label="size 3 select example">
+                            <option value="entertainment">Entertainment</option>
+                            <option value="politics">Politics</option>
+                            <option value="science">Science</option>
+                            <option value="nature">Nature</option>
+                        </select>
                     </div>
                     <div class="form-group mt-2 d-flex justify-content-end">
                         <button class="btn btn-success" type="button" id="postCreateBtn">Create post</button>
                     </div>
                 </form>
             </div>
-            
-            
-            <hr class="mt-3" style="width: 91%; margin: auto">
 
-            <div id="posts-container" class="mx-5 ">
-                ${props.posts.map(post =>
-                        `
+
+            <hr class="mt-3" style="width: 91%; margin: auto">
+        
+        <div id="posts"><div id="posts-container" class="mx-5 ">
+            ${props.posts.map(post =>
+                    `
         
                         <div class="card my-3">
                         <div class="card-header background-card-dark d-flex justify-content-between">
@@ -63,7 +84,7 @@ export default function PostIndex(props) {
                           <div class="card-body background-card-dark">
                             <p class="card-text">${post.content}</p>
                             <div id="btn-container" class="d-flex justify-content-start">
-                                <div class="mx-2"><button class="post-delete-btn btn btn-danger btn-sm" value=${post.id}><i class="bi bi-trash-fill"></i></button></div>
+                                <div class="mx-2"><button  class="post-delete-btn btn btn-danger btn-sm" value=${post.id}><i class="bi bi-trash-fill"></i></button></div>
                                 <div class="dropdown mx-2 w-100">
                                     <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="post-edit-btn" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-pencil-fill"></i>
@@ -86,10 +107,14 @@ export default function PostIndex(props) {
                           </div>
                         </div>                         
                     `)
-        .join('')}  
-            </div>
-        </main>
-    `;
+                    .join('')}
+        </div>
+        </main></div>
+        
+    
+    
+    
+            </div>`;
 }
 
 export function PostsEvent() {
@@ -102,11 +127,35 @@ export function PostsEvent() {
 function addListenerToCreatePost(){
     $('#postCreateBtn').click(function (){
 
+        let selectedCategories = [];
+
+        for (let option of document.getElementById('categories-list-1'). options) {
+            if (option. selected){
+                selectedCategories.push({name: option. value})
+            }
+        }
+
+        for (let option of document.getElementById('categories-list-2'). options) {
+            if (option. selected){
+                selectedCategories.push({name: option. value})
+            }
+        }
+
+        for (let option of document.getElementById('categories-list-3'). options) {
+            if (option. selected){
+                selectedCategories.push({name: option. value})
+            }
+        }
+
+        console.log(selectedCategories)
+
         const title = $('#post-title').val();
         const content = $('#post-content').val();
+        const categories = selectedCategories;
         const newPost = {
             title,
-            content
+            content,
+            categories
         }
 
         console.log(getHeaders());
@@ -128,7 +177,7 @@ function addListenerToCreatePost(){
     });
 }
 function addListenerToUpdatePost() {
-    $(".post-edit-dropdown-btn").click(function (){
+    $('.post-edit-dropdown-btn').click(function (){
         const postId = $(this).val();
         console.log(postId)
 
@@ -159,8 +208,9 @@ function addListenerToUpdatePost() {
     });
 }
 function addListenerToDeletePost(){
-    $(".post-delete-btn").click(function (){
+    $('.post-delete-btn').click(function () {
         const postId = $(this).val();
+        console.log($(this).val());
 
         const requestObject = {
             method: "DELETE",
@@ -195,7 +245,42 @@ function addListenerToCategoryLinks() {
                 posts: data
             }
             console.log(posts)
-            $(document).html(PostIndex(posts))
+            $('#posts').html(pagePostsHtml(posts))
         });
     });
+}
+
+
+
+
+
+function pagePostsHtml(props) {
+    return `
+        
+
+        
+
+            <div id="posts-container" class="mx-5 ">
+                ${props.posts.map(post =>
+        `
+        
+                        <div class="card my-3">
+                        <div class="card-header background-card-dark d-flex justify-content-between">
+                            <h3>${post.title}</h3>
+                            <div class="author-categories w-40">
+                                <div class="author">Author: ${post.author.username}</div>
+                                <div class="categories">Categories: ${post.categories.map(category => category.name)}</div>
+                            </div>
+
+                        </div>
+                          <div class="card-body background-card-dark">
+                            <p class="card-text">${post.content}</p>
+                          </div>
+                        </div>                         
+                    `)
+        .join('')}  
+            </div>
+        </main>
+        
+    `;
 }

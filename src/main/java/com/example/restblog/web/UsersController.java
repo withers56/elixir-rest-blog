@@ -53,7 +53,8 @@ public class UsersController {
 
         User userToUpdate = usersRepository.getById(userId);
         userToUpdate.setEmail(user.getEmail());
-        userToUpdate.setPassword(user.getPassword());
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setRole(user.getRole());
         usersRepository.save(userToUpdate);
 
         System.out.println("Updating user with id of: " + userId + " \nto: " + user);

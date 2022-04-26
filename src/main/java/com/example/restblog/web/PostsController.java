@@ -53,10 +53,17 @@ public class PostsController {
     private void createPost(@RequestBody Post newPost, OAuth2Authentication auth){
         //in-memory list og categories
         Collection<Category> categories = new ArrayList<>();
-        categories.add(categoriesRepository.getById(1L));
-        categories.add(categoriesRepository.getById(2L));
+//        categories.add(categoriesRepository.getById(1L));
+//        categories.add(categoriesRepository.getById(2L));
+        for (Category category : newPost.getCategories()) {
+            System.out.println(category.getName());
+            categories.add(categoriesRepository.findCategoryByName(category.getName()));
+        }
 
-        Post postToAdd = new Post(newPost.getTitle(), newPost.getContent());
+        Post postToAdd = new Post();
+        postToAdd.setTitle(newPost.getTitle());
+        postToAdd.setContent(newPost.getContent());
+        postToAdd.setCategories(categories);
 
 
         //Finding active user that is logged in to set them as the author of the post
@@ -65,7 +72,6 @@ public class PostsController {
 
         //sets author and categories to post
         postToAdd.setAuthor(user);
-        postToAdd.setCategories(categories);
 
         emailService.prepareAndSend(postToAdd, "post subject", "post body");
         //SAVE THIS POST TO THE DATABASE

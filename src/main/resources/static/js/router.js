@@ -10,6 +10,7 @@ import Register from "./views/Register.js"
 import {RegisterEvent} from "./views/Register.js";
 import Profile, {UserEvents} from "./views/UserIndex.js";
 import logout, {logoutEvent} from "./views/logout.js";
+import Admin, {AdminEvents} from "./views/AdminIndex.js";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -82,6 +83,15 @@ export default function router(URI) {
             uri: '/profile',
             title: 'Profile',
             viewEvent: UserEvents
+        },
+        '/admin': {
+            returnView: Admin,
+            state: {
+                users: '/api/users',//<--- eventually the username here can be dynamic
+            },
+            uri: '/admin',
+            title: 'Admin',
+            viewEvent: AdminEvents
         }
 
     };

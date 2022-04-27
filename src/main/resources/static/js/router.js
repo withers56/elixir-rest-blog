@@ -87,7 +87,9 @@ export default function router(URI) {
         '/admin': {
             returnView: Admin,
             state: {
-                users: '/api/users',//<--- eventually the username here can be dynamic
+                users: '/api/users',
+                posts: '/api/posts'
+
             },
             uri: '/admin',
             title: 'Admin',
